@@ -3,21 +3,14 @@ import {StyleSheet, Text, View} from "react-native";
 import {DateSvg} from "../../../assets/svg/DateSvg";
 import {TicketSvg} from "../../../assets/svg/TicketSvg";
 import {TimeSvg} from "../../../assets/svg/TimeSvg";
+import {timeLength} from "../../../common/utils/timeLength";
 
 type DateTimeType = {
   date: string
-  time: string
+  time: string | null
 }
 
 export const DateTime = ({time, date}: DateTimeType) => {
-
-  const timeLength = () => {
-    const minutes = +time.slice(3)
-    const hours = +time.slice(0, 2)
-    return hours * 60 + minutes
-
-  }
-  timeLength()
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -29,7 +22,7 @@ export const DateTime = ({time, date}: DateTimeType) => {
 
       <View style={styles.box}>
         <TimeSvg/>
-        <Text style={styles.text}>{timeLength()} Minutes</Text>
+        <Text style={styles.text}>{timeLength(time)} Minutes</Text>
       </View>
 
       <View style={styles.line}/>
@@ -64,5 +57,4 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     color: '#91919c',
   },
-
 })

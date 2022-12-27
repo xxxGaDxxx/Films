@@ -9,7 +9,6 @@ import {Description} from "./components/Description";
 export const DetailsScreen = ({route}: DetailsScreenProps) => {
   const {film} = route.params
 
-
   return (
     <View style={styles.container}>
       <ImgPoster film={film}/>
@@ -30,7 +29,6 @@ const styles = StyleSheet.create({
     color: '#fdfdfd',
     left: 150
   },
-  item: {},
   imgPoster: {
     width: WIDTH,
     height: 250,

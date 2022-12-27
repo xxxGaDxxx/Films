@@ -8,25 +8,30 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import {api, FilmsTopTypeFilms} from "../../api/api";
+import {api, FilmsItemsTypeFilms} from "../../api/api";
 import {NUM_COLUMNS, PADDING} from "../../constants/constants";
 import {useAppNavigation} from "../types";
 import {InputSearch} from "../../common/components/InputSearch";
 
 export const AllFilmsScreen = () => {
-  const [filmsItem, setFilmsItem] = useState<FilmsTopTypeFilms[]>()
-
+  const [filmsItem, setFilmsItem] = useState<FilmsItemsTypeFilms[]>()
 
   const {navigate} = useAppNavigation()
+
+  const addFilmsItem = (films: FilmsItemsTypeFilms[]) => {
+    setFilmsItem(films)
+  }
 
   useEffect(() => {
     api.getFilmsTop()
       .then((res) => {
-        setFilmsItem(res.data.films)
+        if (res.data.films.length) {
+          setFilmsItem(res.data.films)
+        }
       })
   }, [])
 
-  const renderItem: ListRenderItem<FilmsTopTypeFilms> = ({item}) => {
+  const renderItem: ListRenderItem<FilmsItemsTypeFilms> = ({item}) => {
     return <TouchableOpacity onPress={() => {
       navigate('Home', {
         screen: 'Details', params: {
@@ -48,7 +53,7 @@ export const AllFilmsScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>What do you want to watch?</Text>
-      <InputSearch/>
+      <InputSearch setFilmsItem={addFilmsItem}/>
       <FlatList data={filmsItem} renderItem={renderItem} numColumns={NUM_COLUMNS}
                 columnWrapperStyle={{justifyContent: 'space-between'}}/>
     </View>

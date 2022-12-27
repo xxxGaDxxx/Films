@@ -1,6 +1,6 @@
 import {NavigationProp, NavigatorScreenParams, useNavigation} from "@react-navigation/native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {FilmsTopTypeFilms} from "../api/api";
+import {FilmsItemsTypeFilms} from "../api/api";
 
 export type RootStackParamsLists = {
   Home: NavigatorScreenParams<RootDetailsParamsList>
@@ -9,9 +9,9 @@ export type RootStackParamsLists = {
 }
 
 export type RootDetailsParamsList = {
-  AllFilms:undefined
+  AllFilms: undefined
   Details: {
-    film:FilmsTopTypeFilms
+    film: FilmsItemsTypeFilms
   }
 }
 

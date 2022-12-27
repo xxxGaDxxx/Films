@@ -1,20 +1,15 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from "react-native";
 import {WIDTH} from "../../../constants/constants";
-import {FilmsTopTypeFilms} from "../../../api/api";
+import {FilmsItemsTypeFilms} from "../../../api/api";
 import {StarSvg} from "../../../assets/svg/StarSvg";
+import {rating} from "../../../common/utils/rating";
 
 type ImgPosterType = {
-  film: FilmsTopTypeFilms
+  film: FilmsItemsTypeFilms
 }
 
 export const ImgPoster = ({film}: ImgPosterType) => {
-  let reting: string | number = film.rating
-  console.log('film',film)
-  if (film.rating.length > 3) {
-    const num = +film.rating.replace('%', '')
-    reting = (num / 10).toFixed(1)
-  }
 
   return (
     <View style={{position: 'relative'}}>
@@ -24,7 +19,7 @@ export const ImgPoster = ({film}: ImgPosterType) => {
       />
       <View style={styles.rating}>
         <StarSvg/>
-        <Text style={styles.textRating}>{reting}</Text>
+        <Text style={styles.textRating}>{rating(film.rating)}</Text>
       </View>
       <Image
         style={styles.img}
@@ -44,8 +39,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 20,
     color: '#fdfdfd',
-    top:-50,
-    width:220,
+    top: -50,
+    width: 220,
     left: 150
   },
   imgPoster: {
@@ -65,12 +60,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     flexDirection: 'row',
-    alignItems:'center'
+    alignItems: 'center'
   },
-  textRating:{
-    color:'#fd8600',
-    fontSize:16,
-    marginLeft:5,
+  textRating: {
+    color: '#fd8600',
+    fontSize: 16,
+    marginLeft: 5,
   },
   img: {
     position: "absolute",

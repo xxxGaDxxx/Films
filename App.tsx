@@ -2,10 +2,10 @@ import {StyleSheet, View} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {RootStackParamsLists} from "./src/screens/types";
-import {HomeScreen} from "./src/screens/Home/HomeScreen";
 import {SearchScreen} from "./src/screens/Search/SearchScreen";
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 import {WatchListScreen} from "./src/screens/WatchList/WatchListScreen";
+import {HomeScreen} from "./src/screens/Home/HomeScreen";
 
 
 const Tab = createBottomTabNavigator<RootStackParamsLists>();

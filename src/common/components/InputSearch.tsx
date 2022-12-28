@@ -1,29 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, TextInput, View} from "react-native";
 import {useDebounce} from "../hooks/useDebounce";
-import {api, FilmsItemsTypeFilms} from "../../api/api";
 import {SearchSvg} from "../../assets/svg/SearchSvg";
 import {PADDING, WIDTH} from "../../constants/constants";
+import {useAppDispatch} from "../hooks/storHooks";
+import {getSearchFilms, resetStateSearchFilms} from "../../bll/reducers/searchFilmsReducers";
 
-type InputSearchType = {
-  setFilmsItem: (value: FilmsItemsTypeFilms[]) => void
-}
 
 const TIME_WAIT = 700;
 
-export const InputSearch = ({setFilmsItem}: InputSearchType) => {
+export const InputSearch = () => {
+
   const [searchValue, setSearchValue] = useState<string>('');
+
+
+  const dispatch = useAppDispatch()
 
   const debounceText = useDebounce<string>(searchValue, TIME_WAIT);
 
+
   useEffect(() => {
-    if (searchValue.length) {
-      api.getFilmsSearch(debounceText)
-        .then((res) => {
-          setFilmsItem(res.data.films)
-        })
+    dispatch(getSearchFilms(searchValue))
+    if (!searchValue.length) {
+      console.log(2222)
+      dispatch(resetStateSearchFilms())
     }
   }, [debounceText]);
+
 
   return (
     <View>

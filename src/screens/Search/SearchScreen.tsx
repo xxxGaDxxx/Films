@@ -1,22 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import {PADDING} from "../../constants/constants";
 import {InputSearch} from "../../common/components/InputSearch";
-import {FilmsItemsTypeFilms} from "../../api/api";
 import {DataFilm} from "./components/DataFilm";
+import {useAppSelector} from "../../common/hooks/storHooks";
 
 export const SearchScreen = () => {
-  const [filmsItem, setFilmsItem] = useState<FilmsItemsTypeFilms[]>([])
-
-  const addFilmsItem =(films:FilmsItemsTypeFilms[])=>{
-    setFilmsItem(films)
-  }
+  const searchFilms = useAppSelector(state => state.searchFilms)
 
   return (
     <View style={styles.container}>
       <Text>SearchScreen</Text>
-      <InputSearch setFilmsItem={addFilmsItem}/>
-     <DataFilm filmsArr={filmsItem}/>
+      <InputSearch/>
+      <DataFilm filmsArr={searchFilms}/>
     </View>
   );
 };

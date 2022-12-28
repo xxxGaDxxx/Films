@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import {slice as appReducer} from '../reducers/appReducer';
 import {slice as topFilmsReducers} from '../reducers/topFilmsReducers';
 import {slice as categoriesFilmsReducers} from '../reducers/categoriesFilmsReducers';
+import {slice as searchFilmsReducers} from '../reducers/searchFilmsReducers';
 
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     app: appReducer.reducer,
     filmsTop: topFilmsReducers.reducer,
     filmsCategories: categoriesFilmsReducers.reducer,
+    searchFilms: searchFilmsReducers.reducer,
 
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk),

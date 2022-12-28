@@ -1,29 +1,28 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
-import {FilmsItemsTypeFilms} from "../../api/api";
+import React from 'react';
+import {ScrollView, StyleSheet, Text, View} from "react-native";
 import {PADDING} from "../../constants/constants";
 import {InputSearch} from "../../common/components/InputSearch";
 import {CategoriesFilms} from "./components/CategoriesFilms";
 import {TopFilms} from "./components/TopFilms";
+import {useAppSelector} from "../../common/hooks/storHooks";
 
 export const AllFilmsScreen = () => {
-  const [categoriesFilmsItem, setCategoriesFilmsItem] = useState<FilmsItemsTypeFilms[]>()
-
-
-  const addFilmsItem = (films: FilmsItemsTypeFilms[]) => {
-    setCategoriesFilmsItem(films)
-  }
+  const searchFilms = useAppSelector(state => state.searchFilms)
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>What do you want to watch?
       </Text>
 
-      <InputSearch setFilmsItem={addFilmsItem}/>
+      <InputSearch/>
+      {!searchFilms.length
+        ? <ScrollView>
+          <TopFilms/>
 
-      <TopFilms/>
-
-      <CategoriesFilms />
+          <CategoriesFilms/>
+        </ScrollView>
+        : <View></View>
+      }
 
     </View>
   );

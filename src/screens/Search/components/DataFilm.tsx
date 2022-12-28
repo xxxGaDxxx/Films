@@ -20,10 +20,10 @@ import {StarSvg} from "../../../assets/svg/StarSvg";
 import {rating} from "../../../common/utils/rating";
 
 type DataFilmType = {
-  films: FilmsItemsTypeFilms[]
+  filmsArr: FilmsItemsTypeFilms[]
 }
 
-export const DataFilm = ({films}: DataFilmType) => {
+export const DataFilm = ({filmsArr}: DataFilmType) => {
   const {navigate} = useAppNavigation()
 
 
@@ -72,9 +72,9 @@ export const DataFilm = ({films}: DataFilmType) => {
 
   return (
     <View style={{flex: 1}}>
-      {films.length
+      {filmsArr.length
         ? <View>
-          <FlatList data={films} renderItem={renderItem} numColumns={1}
+          <FlatList data={filmsArr} renderItem={renderItem} numColumns={1}
           />
         </View>
         : <View style={styles.containerNoFilms}>

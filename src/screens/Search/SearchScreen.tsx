@@ -16,7 +16,7 @@ export const SearchScreen = () => {
     <View style={styles.container}>
       <Text>SearchScreen</Text>
       <InputSearch setFilmsItem={addFilmsItem}/>
-     <DataFilm films={filmsItem}/>
+     <DataFilm filmsArr={filmsItem}/>
     </View>
   );
 };

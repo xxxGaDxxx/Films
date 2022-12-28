@@ -1,61 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import {
-  FlatList,
-  Image,
-  ListRenderItem,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import {api, FilmsItemsTypeFilms} from "../../api/api";
-import {NUM_COLUMNS, PADDING} from "../../constants/constants";
-import {useAppNavigation} from "../types";
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from "react-native";
+import {FilmsItemsTypeFilms} from "../../api/api";
+import {PADDING} from "../../constants/constants";
 import {InputSearch} from "../../common/components/InputSearch";
+import {CategoriesFilms} from "./components/CategoriesFilms";
+import {TopFilms} from "./components/TopFilms";
 
 export const AllFilmsScreen = () => {
-  const [filmsItem, setFilmsItem] = useState<FilmsItemsTypeFilms[]>()
+  const [categoriesFilmsItem, setCategoriesFilmsItem] = useState<FilmsItemsTypeFilms[]>()
 
-  const {navigate} = useAppNavigation()
+  const [topFilmsItem, setTopFilmsItem] = useState<FilmsItemsTypeFilms[]>()
+
 
   const addFilmsItem = (films: FilmsItemsTypeFilms[]) => {
-    setFilmsItem(films)
+    setCategoriesFilmsItem(films)
   }
-
-  useEffect(() => {
-    api.getFilmsTop()
-      .then((res) => {
-        if (res.data.films.length) {
-          setFilmsItem(res.data.films)
-        }
-      })
-  }, [])
-
-  const renderItem: ListRenderItem<FilmsItemsTypeFilms> = ({item}) => {
-    return <TouchableOpacity onPress={() => {
-      navigate('Home', {
-        screen: 'Details', params: {
-          film: item
-        }
-      })
-    }
-    }>
-      <View style={styles.item}>
-        <Image
-          style={styles.imgPoster}
-          source={{uri: item.posterUrl}}
-        />
-      </View>
-    </TouchableOpacity>
-  }
-
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>What do you want to watch?</Text>
+      <Text style={styles.text}>What do you want to watch?
+      </Text>
+
       <InputSearch setFilmsItem={addFilmsItem}/>
-      <FlatList data={filmsItem} renderItem={renderItem} numColumns={NUM_COLUMNS}
-                columnWrapperStyle={{justifyContent: 'space-between'}}/>
+
+      <TopFilms filmsArr={topFilmsItem} setFilmsItem={setTopFilmsItem}/>
+
+      <CategoriesFilms filmsArr={categoriesFilmsItem} setFilmsItem={addFilmsItem}/>
+
     </View>
   );
 };

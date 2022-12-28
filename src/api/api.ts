@@ -17,6 +17,12 @@ export const api = {
   getFilmsTop() {
     return instance.get<FilmsTopType>(`${BASE_URL_2}films/top?type=TOP_100_POPULAR_FILMS`)
   },
+  getFilmsBest() {
+    return instance.get<FilmsTopType>(`${BASE_URL_2}films/top?type=TOP_250_BEST_FILMS`)
+  },
+  getFilmsAwait() {
+    return instance.get<FilmsTopType>(`${BASE_URL_2}films/top?type=TOP_AWAIT_FILMS`)
+  },
   getFilmsSearch(title: string) {
     return instance.get<FilmsSearchType>(`${BASE_URL_1}films/search-by-keyword?keyword=${title}`)
   }

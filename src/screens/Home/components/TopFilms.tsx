@@ -8,16 +8,17 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import {api, FilmsItemsTypeFilms} from "../../../api/api";
+import {FilmsItemsTypeFilms} from "../../../api/api";
 import {useAppNavigation} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../../common/hooks/storHooks";
+import {getFilmsTop100} from "../../../bll/reducers/topFilmsReducers";
 
 
-type TopFilmsType = {
-  filmsArr: FilmsItemsTypeFilms[] | undefined
-  setFilmsItem: (films: FilmsItemsTypeFilms[]) => void
-}
+export const TopFilms = () => {
+  const filmsTop = useAppSelector(state => state.filmsTop)
 
-export const TopFilms = ({filmsArr, setFilmsItem}: TopFilmsType) => {
+  const dispatch = useAppDispatch()
+
   const {navigate} = useAppNavigation()
 
   const renderItem: ListRenderItem<FilmsItemsTypeFilms> = ({item, index}) => {
@@ -41,17 +42,12 @@ export const TopFilms = ({filmsArr, setFilmsItem}: TopFilmsType) => {
 
 
   useEffect(() => {
-    api.getFilmsTop()
-      .then((res) => {
-        if (res.data.films.length) {
-          setFilmsItem(res.data.films)
-        }
-      })
+    dispatch(getFilmsTop100())
   }, [])
 
   return (
     <View>
-      <FlatList data={filmsArr}
+      <FlatList data={filmsTop}
                 renderItem={renderItem}
                 horizontal
                 showsHorizontalScrollIndicator={false}

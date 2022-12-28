@@ -9,8 +9,6 @@ import {TopFilms} from "./components/TopFilms";
 export const AllFilmsScreen = () => {
   const [categoriesFilmsItem, setCategoriesFilmsItem] = useState<FilmsItemsTypeFilms[]>()
 
-  const [topFilmsItem, setTopFilmsItem] = useState<FilmsItemsTypeFilms[]>()
-
 
   const addFilmsItem = (films: FilmsItemsTypeFilms[]) => {
     setCategoriesFilmsItem(films)
@@ -23,9 +21,9 @@ export const AllFilmsScreen = () => {
 
       <InputSearch setFilmsItem={addFilmsItem}/>
 
-      <TopFilms filmsArr={topFilmsItem} setFilmsItem={setTopFilmsItem}/>
+      <TopFilms/>
 
-      <CategoriesFilms filmsArr={categoriesFilmsItem} setFilmsItem={addFilmsItem}/>
+      <CategoriesFilms />
 
     </View>
   );

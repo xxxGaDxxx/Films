@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -9,17 +9,21 @@ import {
   View
 } from "react-native";
 import {NUM_COLUMNS} from "../../../constants/constants";
-import {api, FilmsItemsTypeFilms} from "../../../api/api";
+import {FilmsItemsTypeFilms} from "../../../api/api";
 import {useAppNavigation} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../../common/hooks/storHooks";
+import {getFilmsCategories} from "../../../bll/reducers/categoriesFilmsReducers";
 
 
-type CategoriesFilmsType = {
-  filmsArr: FilmsItemsTypeFilms[] | undefined
-  setFilmsItem: (films: FilmsItemsTypeFilms[]) => void
-}
+export const CategoriesFilms = () => {
+  const filmsCategories = useAppSelector(state => state.filmsCategories)
 
-export const CategoriesFilms = ({filmsArr, setFilmsItem}: CategoriesFilmsType) => {
+  const [btnActive, setBtnActive] = useState('btn1')
+
+  const dispatch = useAppDispatch()
+
   const {navigate} = useAppNavigation()
+
 
   const renderItem: ListRenderItem<FilmsItemsTypeFilms> = ({item}) => {
     return <TouchableOpacity onPress={() => {
@@ -41,37 +45,38 @@ export const CategoriesFilms = ({filmsArr, setFilmsItem}: CategoriesFilmsType) =
 
 
   useEffect(() => {
-    api.getFilmsBest()
-      .then((res) => {
-        if (res.data.films.length) {
-          setFilmsItem(res.data.films)
-        }
-      })
-  }, [])
+    dispatch(getFilmsCategories(btnActive))
+  }, [btnActive])
+
 
   return (
     <View style={{flex: 1, marginTop: -50}}>
       <View style={styles.containerButton}>
         <TouchableOpacity
-
           style={styles.button}
-          onPress={() => {
-          }}
 
+          onPress={() => {
+            setBtnActive('btn1')
+          }}
         >
-          <Text style={styles.buttonText}>Best</Text>
+
+          <Text
+            style={btnActive === 'btn1' ? [styles.buttonText, styles.btnActive] : styles.buttonText}>Now
+            playing</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
+            setBtnActive('btn2')
           }}
         >
-          <Text style={styles.buttonText}>Await</Text>
+          <Text
+            style={btnActive === 'btn2' ? [styles.buttonText, styles.btnActive] : styles.buttonText}>Upcoming</Text>
         </TouchableOpacity>
       </View>
 
-      <FlatList data={filmsArr}
+      <FlatList data={filmsCategories}
                 renderItem={renderItem} numColumns={NUM_COLUMNS}
                 showsHorizontalScrollIndicator={false}
                 columnWrapperStyle={{justifyContent: 'space-between'}}/>
@@ -96,12 +101,19 @@ const styles = StyleSheet.create({
 
   button: {
     position: "relative",
-    marginBottom:15,
+    marginBottom: 15,
   },
+
   buttonText: {
     fontSize: 16,
-    fontWeight:'500',
+    fontWeight: '500',
     color: '#fdfdfd',
-    marginHorizontal: 5
-  }
+    marginHorizontal: 5,
+    marginBottom: 5
+  },
+  btnActive: {
+    paddingBottom: 5,
+    borderBottomWidth: 3,
+    borderBottomColor: '#3a3f46'
+  },
 })

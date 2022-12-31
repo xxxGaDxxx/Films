@@ -10,7 +10,7 @@ export const getSearchFilms = createAsyncThunk(
   'searchFilms/getSearchFilms',
   async (params: string, thunkApi) => {
     thunkApi.dispatch(setAppStatusAC({status: 'loading'}));
-
+    console.log('params', params)
     try {
       const res = await api.getFilmsSearch(params);
 
@@ -36,7 +36,7 @@ export const slice = createSlice({
 
   reducers: {
     resetStateSearchFilms(state) {
-     return  state = []
+      return state = []
     },
   },
 

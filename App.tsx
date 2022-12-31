@@ -26,13 +26,16 @@ export default function App() {
                 screenOptions={({route}) => ({
                     tabBarIcon: ({focused}) => {
                       if (route.name === 'Home') {
-                        return focused ? <SearchFocusedSvg/> : <SearchSvg/>
+                        //return focused ? <SearchFocusedSvg/> : <SearchSvg/>
+                        return <SearchSvg customColor={focused ? 'red' : 'green'}/>
                       }
                       if (route.name === 'Search') {
-                        return focused ? <SearchFocusedSvg/> : <SearchSvg/>
+                       // return focused ? <SearchFocusedSvg/> : <SearchSvg/>
+                        return <SearchSvg customColor={focused ? 'red' : 'green'} style={focused ? {transform: [{scale: 1.1}]} : {}}/>
                       }
                       if (route.name === 'WatchList') {
-                        return focused ? <SearchFocusedSvg/> : <SearchSvg/>
+                        //return focused ? <SearchFocusedSvg/> : <SearchSvg/>
+                        return <SearchSvg customColor={focused ? 'red' : 'green'}/>
                       }
                     },
 

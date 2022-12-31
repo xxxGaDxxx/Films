@@ -5,9 +5,18 @@ import {InputSearch} from "../../common/components/InputSearch";
 import {CategoriesFilms} from "./components/CategoriesFilms";
 import {TopFilms} from "./components/TopFilms";
 import {useAppSelector} from "../../common/hooks/storHooks";
+import {DataFilm} from "../Search/components/DataFilm";
 
 export const AllFilmsScreen = () => {
   const searchFilms = useAppSelector(state => state.searchFilms)
+
+  // const dispatch = useAppDispatch()
+  //
+  // useEffect(() => {
+  //   if (searchFilms.length) {
+  //     dispatch(resetStateSearchFilms())
+  //   }
+  // }, [])
 
   return (
     <View style={styles.container}>
@@ -21,7 +30,10 @@ export const AllFilmsScreen = () => {
 
           <CategoriesFilms/>
         </ScrollView>
-        : <View></View>
+
+        : <View style={{flex: 1}}>
+          <DataFilm filmsArr={searchFilms}/>
+        </View>
       }
 
     </View>

@@ -12,10 +12,11 @@ type ImgPosterType = {
 export const ImgPoster = ({film}: ImgPosterType) => {
 
   return (
-    <View style={{position: 'relative'}}>
+    <View style={{position: 'relative', flex: 1}}>
       <Image
         style={styles.imgPoster}
         source={{uri: film.posterUrlPreview}}
+        resizeMode={'contain'}
       />
       <View style={styles.rating}>
         <StarSvg/>
@@ -25,7 +26,9 @@ export const ImgPoster = ({film}: ImgPosterType) => {
         style={styles.img}
         source={{uri: film.posterUrl}}
       />
-      <Text style={styles.text}>{film.nameEn}</Text>
+      <View style ={{alignItems: 'flex-start'}}>
+        <Text style={styles.text}>{film.nameEn}</Text>
+      </View>
     </View>
   );
 };
@@ -36,17 +39,25 @@ const styles = StyleSheet.create({
     flex: 1
   },
   text: {
-    marginVertical: 10,
+    flexGrow:1,
+   // borderWidth:1, borderColor: 'red',
+   // marginVertical: 10,
     fontSize: 20,
     color: '#fdfdfd',
-    top: -50,
-    width: 220,
-    left: 150
+    //textAlign: 'right',
+    //width: 150,
+    alignSelf: 'flex-end',
+   // top: -50,
+    //width: 220,
+   // left: 150
   },
   imgPoster: {
+    //flex: 1,
+    //...StyleSheet.absoluteFillObject,
     width: WIDTH,
     height: 250,
-    marginVertical: 10,
+    //objectFit: 'contain',
+    //marginVertical: 10,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
   },

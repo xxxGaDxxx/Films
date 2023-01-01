@@ -7,14 +7,17 @@ import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 import {WatchListScreen} from "./src/screens/WatchList/WatchListScreen";
 import {HomeScreen} from "./src/screens/Home/HomeScreen";
 import {SearchSvg} from "./src/assets/svg/SearchSvg";
-import {SearchFocusedSvg} from "./src/assets/svg/SearchFocusedSvg";
 import {store} from "./src/bll/store/store";
 import {Provider} from "react-redux";
+import {HomeSvg} from "./src/assets/svg/HomeSvg";
+import {SaveSvg} from "./src/assets/svg/SaveSvg";
 
 
 const Tab = createBottomTabNavigator<RootStackParamsLists>();
 
 export default function App() {
+
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>
@@ -25,17 +28,21 @@ export default function App() {
               <Tab.Navigator
                 screenOptions={({route}) => ({
                     tabBarIcon: ({focused}) => {
+                      const colorCustom = focused ? '#0295e3' : ''
+
+                      const styleCustom = focused ? {transform: [{scale: 1.1}]} : {}
+
                       if (route.name === 'Home') {
-                        //return focused ? <SearchFocusedSvg/> : <SearchSvg/>
-                        return <SearchSvg customColor={focused ? 'red' : 'green'}/>
+                        return <HomeSvg customColor={colorCustom}
+                                        style={styleCustom}/>
                       }
                       if (route.name === 'Search') {
-                       // return focused ? <SearchFocusedSvg/> : <SearchSvg/>
-                        return <SearchSvg customColor={focused ? 'red' : 'green'} style={focused ? {transform: [{scale: 1.1}]} : {}}/>
+                        return <SearchSvg customColor={colorCustom}
+                                          style={styleCustom}/>
                       }
                       if (route.name === 'WatchList') {
-                        //return focused ? <SearchFocusedSvg/> : <SearchSvg/>
-                        return <SearchSvg customColor={focused ? 'red' : 'green'}/>
+                        return <SaveSvg customColor={colorCustom}
+                                        style={styleCustom}/>
                       }
                     },
 

@@ -1,12 +1,9 @@
 import React from 'react';
-import Svg, {Ellipse, Path, SvgProps} from "react-native-svg";
+import Svg, {Ellipse, Path} from "react-native-svg";
+import {CustomSvgProps} from "./index";
 
 
-interface CustomSvgProps extends SvgProps {
-  customColor: string
-}
-
-export const SearchSvg = ({customColor,...restProps}: CustomSvgProps) => (
+export const SearchSvg = ({customColor, ...restProps}: CustomSvgProps) => (
   <Svg
     width={19}
     height={18}

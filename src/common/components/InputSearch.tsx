@@ -7,7 +7,7 @@ import {useAppDispatch} from "../hooks/storHooks";
 import {getSearchFilms, resetStateSearchFilms} from "../../bll/reducers/searchFilmsReducers";
 
 
-const TIME_WAIT = 700;
+const TIME_WAIT = 300;
 
 export const InputSearch = () => {
 

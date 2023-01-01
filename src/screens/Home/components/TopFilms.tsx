@@ -23,6 +23,7 @@ export const TopFilms = () => {
 
   const renderItem: ListRenderItem<FilmsItemsTypeFilms> = ({item, index}) => {
     return <TouchableOpacity onPress={() => {
+
       navigate('Home', {
         screen: 'Details', params: {
           film: item

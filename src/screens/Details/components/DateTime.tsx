@@ -37,7 +37,7 @@ export const DateTime = ({time, date}: DateTimeType) => {
 
 const styles = StyleSheet.create({
   container: {
-    top: -20,
+    marginVertical:20,
     justifyContent: "center",
     flexDirection: 'row',
   },

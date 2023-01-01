@@ -1,26 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {
-  FlatList,
-  Image,
-  ListRenderItem,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
+import React from 'react';
+import {FlatList, Image, ListRenderItem, StyleSheet, TouchableOpacity, View} from "react-native";
 import {NUM_COLUMNS} from "../../../constants/constants";
 import {FilmsItemsTypeFilms} from "../../../api/api";
 import {useAppNavigation} from "../../types";
-import {useAppDispatch, useAppSelector} from "../../../common/hooks/storHooks";
-import {getFilmsCategories} from "../../../bll/reducers/categoriesFilmsReducers";
+import {useAppSelector} from "../../../common/hooks/storHooks";
+import {GroupBtn} from "../../../common/components/GroupBtn";
 
 
 export const CategoriesFilms = () => {
   const filmsCategories = useAppSelector(state => state.filmsCategories)
 
-  const [btnActive, setBtnActive] = useState('btn1')
-
-  const dispatch = useAppDispatch()
+  const BtnGroup = ['Now playing', 'Upcoming'] // так можно ?
 
   const {navigate} = useAppNavigation()
 
@@ -44,37 +34,9 @@ export const CategoriesFilms = () => {
   }
 
 
-  useEffect(() => {
-    dispatch(getFilmsCategories(btnActive))
-  }, [btnActive])
-
-
   return (
     <View style={{flex: 1, marginTop: -50}}>
-      <View style={styles.containerButton}>
-        <TouchableOpacity
-          style={styles.button}
-
-          onPress={() => {
-            setBtnActive('btn1')
-          }}
-        >
-
-          <Text
-            style={btnActive === 'btn1' ? [styles.buttonText, styles.btnActive] : styles.buttonText}>Now
-            playing</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            setBtnActive('btn2')
-          }}
-        >
-          <Text
-            style={btnActive === 'btn2' ? [styles.buttonText, styles.btnActive] : styles.buttonText}>Upcoming</Text>
-        </TouchableOpacity>
-      </View>
+      <GroupBtn titleBtn={BtnGroup}/>
 
       <FlatList data={filmsCategories}
                 renderItem={renderItem} numColumns={NUM_COLUMNS}
@@ -113,7 +75,7 @@ const styles = StyleSheet.create({
   },
   btnActive: {
     paddingBottom: 5,
-    borderBottomWidth: 3,
+    borderBottomWidth: 4,
     borderBottomColor: '#3a3f46'
   },
 })

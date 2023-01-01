@@ -12,21 +12,26 @@ type ImgPosterType = {
 export const ImgPoster = ({film}: ImgPosterType) => {
 
   return (
-    <View style={{position: 'relative', flex: 1}}>
+    <View style={styles.container}>
       <Image
         style={styles.imgPoster}
         source={{uri: film.posterUrlPreview}}
         resizeMode={'contain'}
       />
-      <View style={styles.rating}>
-        <StarSvg/>
-        <Text style={styles.textRating}>{rating(film.rating)}</Text>
+
+      <View style={styles.containerRating}>
+        <View style={styles.rating}>
+          <StarSvg/>
+          <Text style={styles.textRating}>{rating(film.rating)}</Text>
+        </View>
       </View>
+
       <Image
         style={styles.img}
         source={{uri: film.posterUrl}}
       />
-      <View style ={{alignItems: 'flex-start'}}>
+
+      <View style={styles.containerText}>
         <Text style={styles.text}>{film.nameEn}</Text>
       </View>
     </View>
@@ -35,38 +40,38 @@ export const ImgPoster = ({film}: ImgPosterType) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#242a32',
-    flex: 1
+    position: 'relative',
+    // borderWidth: 1, borderColor: 'red',
+  },
+  containerText: {
+    alignItems: 'flex-end',
+    // borderWidth: 1, borderColor: 'red',
+    top: -30
   },
   text: {
-    flexGrow:1,
-   // borderWidth:1, borderColor: 'red',
-   // marginVertical: 10,
+    flexGrow: 1,
     fontSize: 20,
     color: '#fdfdfd',
-    //textAlign: 'right',
-    //width: 150,
     alignSelf: 'flex-end',
-   // top: -50,
-    //width: 220,
-   // left: 150
+    width: 230,
   },
   imgPoster: {
-    //flex: 1,
-    //...StyleSheet.absoluteFillObject,
     width: WIDTH,
     height: 250,
-    //objectFit: 'contain',
-    //marginVertical: 10,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
   },
+  containerRating: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: 10,
+    top: -60
+  },
   rating: {
     backgroundColor: 'rgba(37, 40, 54, 0.9)',
+    // borderWidth: 1, borderColor: 'red',
     width: 90,
     position: 'relative',
-    top: -60,
-    left: 300,
     padding: 10,
     borderRadius: 10,
     justifyContent: "center",

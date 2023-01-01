@@ -12,10 +12,13 @@ export const getFilmsCategories = createAsyncThunk(
   async (params: string, thunkApi) => {
     thunkApi.dispatch(setAppStatusAC({status: 'loading'}));
     const getFilms = () => {
-      if (params === 'btn1') {
+      if (params === 'Now playing') {
         return api.getFilmsBest();
       }
-      return api.getFilmsAwait();
+      if (params === 'Upcoming') {
+        return api.getFilmsAwait();
+      }
+
     }
 
     try {
@@ -23,7 +26,7 @@ export const getFilmsCategories = createAsyncThunk(
 
       thunkApi.dispatch(setAppStatusAC({status: 'succeeded'}));
 
-      return res.data;
+      return res?.data;
     } catch (err) {
       if (axios.isAxiosError(err)) {
         handleServerNetworkError(err.message, thunkApi.dispatch);
@@ -45,7 +48,7 @@ export const slice = createSlice({
 
   extraReducers: builder => {
     builder.addCase(getFilmsCategories.fulfilled, (state, action) => {
-      return action.payload.films
+      return action.payload?.films
     });
 
   },
